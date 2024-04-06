@@ -77,6 +77,10 @@ setInterval(()=>{
     checkForNewItems();
 } , 60*1000)
 
+app.get('/', (req, res)=>{
+    res.status(200).json({msg : 'hello world'})
+})
+
 // Start the Express server
 app.listen(port, () => {
   console.log(`Server listening on port ${port}`);
