@@ -19,11 +19,6 @@ const emailSettings = {
 
 const rssFeedUrl = process.env.RSS_URL; 
 
-console.log(rssFeedUrl);
-console.log(process.env.SENDER);
-console.log(process.env.RECEIVER);
-console.log(process.env.USER);
-console.log(process.env.PASS);
 
 const transporter = nodemailer.createTransport(emailSettings);
 
@@ -41,7 +36,7 @@ function sendNotificationEmail(feedItem) {
   const mailOptions = {
     from: process.env.SENDER, // Replace with your email address
     to: process.env.RECEIVER, // Replace with recipient's email address
-    subject: Math.random()*50 ,
+    subject: feedItem.title ,
     html: emailBody
   };
 
@@ -64,7 +59,7 @@ async function checkForNewItems() {
     const newItems = parsedFeed.items.filter(item=> !existingFeeds.includes(item.guid)); 
 
     if (newItems.length > 0) {
-        console.log("new items was found");
+        console.log("new items was found , " + newItems.length );
         newItems.forEach(feedItem => sendNotificationEmail(feedItem))
         existingFeeds.splice(0 , newItems.length);
         existingFeeds.push(...newItems.map(item => item.guid));
