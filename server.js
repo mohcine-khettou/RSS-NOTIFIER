@@ -61,7 +61,6 @@ async function checkForNewItems() {
     if (newItems.length > 0) {
         console.log("new items was found , " + newItems.length );
         newItems.forEach(feedItem => sendNotificationEmail(feedItem))
-        existingFeeds.splice(0 , newItems.length);
         existingFeeds.push(...newItems.map(item => item.guid));
     } else {
       console.log('No new items found.');
